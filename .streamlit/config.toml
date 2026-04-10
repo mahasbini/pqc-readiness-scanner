@@ -1,0 +1,9 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+enableStaticServing = false
+
+[client]
+showSidebarNavigation = true
+toolbarMode = "minimal"
