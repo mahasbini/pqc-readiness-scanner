@@ -31,7 +31,7 @@ st.set_page_config(
 TEXTS = {
     "en": {
         "title": "PQC Readiness Scanner",
-        "subtitle": "Dual-score assessment: Classical Security + Post-Quantum Cryptography Readiness",
+        "subtitle": "Assessing enterprise cryptographic readiness for the post-quantum era",
         "tab_scanner": "🔍 Domain Scanner",
         "tab_hndl": "📊 Harvest Now, Decrypt Later",
         "tab_cloud": "☁️ Cloud Migration",
@@ -48,7 +48,7 @@ TEXTS = {
         "share_result": "📤 Share this result",
         "share_linkedin": "Copy for LinkedIn:",
         "about": "About",
-        "about_text": """**PQC Readiness Scanner** provides a dual assessment:\n\n**Classical Security** -- How strong is your cryptography today?\n\n**PQC Readiness** -- How prepared are you for quantum computing?\n\nA site can score A in classical security but F in PQC readiness. That gap is the "Harvest Now, Decrypt Later" risk.""",
+        "about_text": """Part of an ongoing assessment of post-quantum cryptographic preparedness across European critical infrastructure.\n\nFramework developed through 12 years of advanced threat research across 70 countries, including contributions to the French Senate (OPECST) on emerging technology risk.\n\nBased on assessments of 40+ CAC40 companies.""",
         "built_by": "Built by",
         "domains_scanned": "domains scanned",
         "classical": "Classical Security",
@@ -56,7 +56,7 @@ TEXTS = {
     },
     "fr": {
         "title": "Scanner de Maturité PQC",
-        "subtitle": "Double évaluation : Sécurité Classique + Maturité Cryptographie Post-Quantique",
+        "subtitle": "Evaluation de la maturite cryptographique des entreprises pour l'ere post-quantique",
         "tab_scanner": "🔍 Scanner de Domaine",
         "tab_hndl": "📊 Récolter Maintenant, Déchiffrer Plus Tard",
         "tab_cloud": "☁️ Migration Cloud",
@@ -73,7 +73,7 @@ TEXTS = {
         "share_result": "📤 Partager ce résultat",
         "share_linkedin": "Copier pour LinkedIn :",
         "about": "À propos",
-        "about_text": """**Scanner de Maturité PQC** fournit une double évaluation :\n\n**Sécurité Classique** -- Quelle est la robustesse de votre cryptographie aujourd'hui ?\n\n**Maturité PQC** -- Êtes-vous prêt pour l'informatique quantique ?\n\nUn site peut obtenir un A en sécurité classique mais un F en maturité PQC. Cet écart représente le risque « Récolter Maintenant, Déchiffrer Plus Tard ».""",
+        "about_text": """Evaluation continue de la maturite cryptographique post-quantique des infrastructures critiques europeennes.\n\nMethodologie developpee a travers 12 ans de recherche avancee sur les menaces dans 70 pays, incluant des contributions au Senat francais (OPECST) sur les risques technologiques emergents.\n\nBasee sur l'evaluation de 40+ entreprises du CAC40.""",
         "built_by": "Construit par",
         "domains_scanned": "domaines scannés",
         "classical": "Sécurité Classique",
@@ -1202,7 +1202,10 @@ st.markdown("""
     header[data-testid="stHeader"] .stAppToolbar,
     div[class*="stToolbar"] { display: none !important; }
     .main-header { font-size: 2.2rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0; }
-    .sub-header { font-size: 1.1rem; color: #555; margin-top: 0; margin-bottom: 2rem; }
+    .sub-header { font-size: 1.1rem; color: #555; margin-top: 0; margin-bottom: 1rem; }
+    .exec-thesis { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #e2e8f0; padding: 18px 24px; border-radius: 8px; margin-bottom: 1.2rem; font-size: 0.92rem; line-height: 1.6; border-left: 3px solid #60a5fa; }
+    .exec-thesis .impact-stat { color: #f59e0b; font-weight: 700; font-size: 1rem; }
+    .exec-thesis .differentiator { color: #a5b4fc; font-style: italic; }
     .finding-critical { background-color: #fee2e2; border-left: 4px solid #dc2626; padding: 12px 16px; border-radius: 4px; margin: 8px 0; }
     .finding-warning { background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 4px; margin: 8px 0; }
     .finding-safe { background-color: #d1fae5; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 4px; margin: 8px 0; }
@@ -1226,6 +1229,19 @@ with st.sidebar:
 st.markdown(f'<p class="main-header">{t["title"]}</p>', unsafe_allow_html=True)
 st.markdown(f'<p class="sub-header">{t["subtitle"]}</p>', unsafe_allow_html=True)
 
+# Executive thesis + business impact + competitive positioning
+if lang_code == "fr":
+    _thesis = ('Les ordinateurs quantiques rendront la cryptographie actuelle obsolete. Les attaques '
+               '"<span class="impact-stat">Recolter Maintenant, Dechiffrer Plus Tard</span>" signifient '
+               'que les donnees interceptees aujourd\'hui seront dechiffrees demain. '
+               '<span class="differentiator">SSL Labs evalue votre TLS. Nous evaluons votre maturite quantique.</span>')
+else:
+    _thesis = ('Quantum computers will render current cryptography obsolete. '
+               '"<span class="impact-stat">Harvest Now, Decrypt Later</span>" attacks mean '
+               'data intercepted today will be decrypted tomorrow. '
+               '<span class="differentiator">SSL Labs grades your TLS. We grade your quantum readiness.</span>')
+st.markdown(f'<div class="exec-thesis">{_thesis}</div>', unsafe_allow_html=True)
+
 # Sidebar content
 with st.sidebar:
     st.markdown(f"### {t['about']}")
@@ -1240,10 +1256,10 @@ with st.sidebar:
     """)
 
     st.markdown("---")
-    st.markdown(f"""
-    **{t['built_by']} [Amin Hasbini](https://www.linkedin.com/in/amin-hasbini-cybersecurity/)**
+    st.markdown("""
+    **[Amin Hasbini](https://www.linkedin.com/in/amin-hasbini-cybersecurity/)**
 
-    AI & Cybersecurity Strategy Executive | Ex-Kaspersky GReAT Director | OPECST Contributor
+    AI & Cybersecurity Strategy Executive
     """)
 
     current_history = load_scan_history()
@@ -2323,8 +2339,8 @@ st.markdown(f"""
 # Footer
 st.markdown("""
 <div class="footer">
-    <strong>PQC Readiness Scanner v4.1</strong> | Built by Amin Hasbini |
-    <a href="https://www.linkedin.com/in/amin-hasbini-cybersecurity/">LinkedIn</a> |
+    <strong>PQC Readiness Scanner</strong> |
+    <a href="https://www.linkedin.com/in/amin-hasbini-cybersecurity/">Amin Hasbini</a> |
     AI & Cybersecurity Strategy Executive<br>
     Sources: NIST FIPS 203/204/205, ANSSI PQC Guidance, WEF Global Cybersecurity Outlook 2025
 </div>
